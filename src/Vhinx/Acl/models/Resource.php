@@ -24,6 +24,6 @@ class Resource extends Eloquent
     
     public function groups()
     {
-        return $this->belongsToMany("Vhinx\\Acl\\models\\Group")->withTimestamps();
+        return $this->belongsToMany(Config::get("vhinx::acl.group.model"))->withTimestamps();
     }
 }
