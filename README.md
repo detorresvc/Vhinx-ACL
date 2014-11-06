@@ -32,6 +32,7 @@ Add the following line to the `require` section of `composer.json`:
 2. change the value of model in `app/config/auth.php` to `Vhinx\\Acl\\Models\\User`
 3. run `php artisan migrate --package=Vhinx/Acl`
 4. run `php artisan db:seed --classname=DataSeeder`
+5. run `php artisan asset:publish --package=Vhinx/Acl`
 
 
 
