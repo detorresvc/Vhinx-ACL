@@ -18,33 +18,35 @@ use Vhinx\Acl\models\Resource as Resource;
 
 Route::group(["before" => "xguest"], function()
 {
-    
-    $resources = Resource::where("secure", false)->get();
-    
-    foreach ($resources as $resource)
-    {
-      
-        Route::any($resource->pattern, [
-            "as"   => $resource->name,
-            "uses" => $resource->target 
-        ]);
+    if (Schema::hasTable('resource')){
+        $resources = Resource::where("secure", false)->get();
+
+        foreach ($resources as $resource)
+        {
+
+            Route::any($resource->pattern, [
+                "as"   => $resource->name,
+                "uses" => $resource->target 
+            ]);
+        }
     }
 });
 
 Route::group(["before" => "xauth"], function()
 {
-     
-    $resources = Resource::where("secure", true)->get();
+     if (Schema::hasTable('resource')){
+        $resources = Resource::where("secure", true)->get();
 
-    foreach ($resources as $resource)
-    {
-       
-        Route::any($resource->pattern, [
-            "before" => $resource->before_filter,
-            "as"   => $resource->name,
-            "uses" => $resource->target
-        ]);
-    }
+        foreach ($resources as $resource)
+        {
+
+            Route::any($resource->pattern, [
+                "before" => $resource->before_filter,
+                "as"   => $resource->name,
+                "uses" => $resource->target
+            ]);
+        }
+     }
 });
 
 
